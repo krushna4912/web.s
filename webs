@@ -1,0 +1,52 @@
+npx create-react-app profile-explorer
+cd profile-explorer
+npm start
+ 
+export const profiles = [
+  {
+    id: 1,
+    name: "John Doe",
+    photo: "john.jpg",
+    description: "Loremkrushna ipsum dolor sit amet...",
+    address: "123 Main St, City, Country",
+  },
+  // Add more profiles...
+]; 
+import React from "react";
+import { profiles } from "./data";
+
+function ProfileList() {
+  return (
+    <div>
+      {profiles.map((profile) => (
+        <div key={profile.id}>
+          <img src={profile.photo} alt={profile.name} />
+          <h2>{profile.name}</h2>
+          <p>{profile.description}</p>
+          <button>Summary</button>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export default ProfileList;
+ 
+import React from "react";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+
+function Map({ profile }) {
+  return (
+    <MapContainer center={profile.address} zoom={13}>
+      <TileLayer
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      />
+      <Marker position={profile.address}>
+        <Popup>{profile.name}</Popup>
+      </Marker>
+    </MapContainer>
+  );
+}
+
+export default Map;
